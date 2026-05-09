@@ -18,6 +18,35 @@ if has_mini_completion then
   })
 end
 
+-- mini.pick の設定（telescope 代替）
+local has_mini_pick, mini_pick = pcall(require, 'mini.pick')
+if has_mini_pick then
+  mini_pick.setup({
+    mappings = {
+      choose_in_split = '<C-s>',
+      choose_in_vsplit = '<C-v>',
+    },
+  })
+end
+
+-- mini.notify の設定（通知表示）
+local has_mini_notify, mini_notify = pcall(require, 'mini.notify')
+if has_mini_notify then
+  mini_notify.setup()
+end
+
+-- mini.git の設定（Git 統合）
+local has_mini_git, mini_git = pcall(require, 'mini.git')
+if has_mini_git then
+  mini_git.setup()
+end
+
+-- mini.statusline の設定（ステータスライン）
+local has_mini_statusline, mini_statusline = pcall(require, 'mini.statusline')
+if has_mini_statusline then
+  mini_statusline.setup()
+end
+
 -- Treesitter の設定
 local has_treesitter, treesitter_configs = pcall(require, 'nvim-treesitter.configs')
 if has_treesitter then
