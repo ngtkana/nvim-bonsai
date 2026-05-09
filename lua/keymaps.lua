@@ -4,6 +4,15 @@
 
 local map = vim.keymap.set
 
+-- mini.files (ファイルツリー)
+map('n', '-', function()
+  require('mini.files').open(vim.api.nvim_buf_get_name(0))
+end, { desc = 'Open file explorer (current file)' })
+
+map('n', '<leader>e', function()
+  require('mini.files').open()
+end, { desc = 'Open file explorer (cwd)' })
+
 -- mini.pick (telescope 代替)
 map('n', '<leader>ff', function()
   require('mini.pick').builtin.files()

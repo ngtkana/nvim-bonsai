@@ -47,6 +47,58 @@ if has_mini_statusline then
   mini_statusline.setup()
 end
 
+-- mini.files の設定（ファイルツリー）
+local has_mini_files, mini_files = pcall(require, 'mini.files')
+if has_mini_files then
+  mini_files.setup({
+    mappings = {
+      close = 'q',
+      go_in = 'l',
+      go_in_plus = '<CR>',
+      go_out = 'h',
+      go_out_plus = 'H',
+      reset = '<BS>',
+      show_help = 'g?',
+      synchronize = '=',
+      trim_left = '<',
+      trim_right = '>',
+    },
+  })
+end
+
+-- mini.clue の設定（which-key 代替）
+local has_mini_clue, mini_clue = pcall(require, 'mini.clue')
+if has_mini_clue then
+  mini_clue.setup({
+    triggers = {
+      -- Leader キー
+      { mode = 'n', keys = ',' },
+      { mode = 'x', keys = ',' },
+      -- Built-in completion
+      { mode = 'i', keys = '<C-x>' },
+      -- `g` key
+      { mode = 'n', keys = 'g' },
+      { mode = 'x', keys = 'g' },
+      -- Window commands
+      { mode = 'n', keys = '<C-w>' },
+      -- `z` key
+      { mode = 'n', keys = 'z' },
+    },
+    clues = {
+      -- Leader キーのグループ化
+      { mode = 'n', keys = ',f', desc = '+find' },
+      { mode = 'n', keys = ',e', desc = '+edit' },
+      { mode = 'n', keys = ',s', desc = '+source' },
+      { mode = 'n', keys = ',c', desc = '+code' },
+      -- Built-in clues
+      mini_clue.gen_clues.builtin_completion(),
+      mini_clue.gen_clues.g(),
+      mini_clue.gen_clues.windows(),
+      mini_clue.gen_clues.z(),
+    },
+  })
+end
+
 -- Treesitter の設定
 local has_treesitter, treesitter_configs = pcall(require, 'nvim-treesitter.configs')
 if has_treesitter then
