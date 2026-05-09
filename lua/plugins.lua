@@ -90,6 +90,14 @@ if has_mini_clue then
       mini_clue.gen_clues.windows(),
       mini_clue.gen_clues.z(),
     },
+    window = {
+      delay = 300,  -- 表示までの遅延を 300ms に短縮（デフォルト 1000ms）
+      config = {
+        anchor = 'SW',  -- 左下に表示（デフォルトは右下）
+        row = 'auto',
+        col = 'auto',
+      },
+    },
   })
 end
 
