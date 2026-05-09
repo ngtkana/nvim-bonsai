@@ -119,6 +119,22 @@ if has_mini_ai then
   mini_ai.setup()
 end
 
+-- mini.hipatterns の設定（パターンハイライト）
+local has_mini_hipatterns, mini_hipatterns = pcall(require, 'mini.hipatterns')
+if has_mini_hipatterns then
+  mini_hipatterns.setup({
+    highlighters = {
+      -- カラーコード (#rrggbb, #rgb)
+      hex_color = mini_hipatterns.gen_highlighter.hex_color(),
+      -- TODO, FIXME, NOTE などのキーワード
+      fixme = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
+      hack  = { pattern = '%f[%w]()HACK()%f[%W]',  group = 'MiniHipatternsHack'  },
+      todo  = { pattern = '%f[%w]()TODO()%f[%W]',  group = 'MiniHipatternsTodo'  },
+      note  = { pattern = '%f[%w]()NOTE()%f[%W]',  group = 'MiniHipatternsNote'  },
+    },
+  })
+end
+
 -- Treesitter の設定
 local has_treesitter, treesitter_configs = pcall(require, 'nvim-treesitter.configs')
 if has_treesitter then
