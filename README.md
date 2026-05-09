@@ -1,105 +1,49 @@
-# 最小限のNeovim設定 (盆栽スタイル)
+# nvim-bonsai
 
-## 設計思想
+盆栽スタイルの最小限 Neovim 設定。依存ゼロ、手動管理、深く理解できる。
 
-- **脱・全部入り**: lazy.nvim や mason.nvim は不要
-- **ネイティブ重視**: Neovim 0.11+ のネイティブLSP (`vim.lsp.start`) を直接使用
-- **ポータビリティ**: `$PATH` にあるLSPを自動検知する「あったら使う」構成
-- **Git管理**: プラグインは全て Git submodule として管理（自動生成ファイルなし）
+## 特徴
 
-## 導入済みプラグイン
+- **Neovim 0.11+ ネイティブ LSP** - nvim-lspconfig 不要、`vim.lsp.start()` を直接使用
+- **Git submodule 管理** - lazy.nvim/mason.nvim 不要、プラグイン 3 個のみ
+- **mini.nvim ベース** - ファイル検索、ファイルツリー、通知など全て内蔵
+- **外部ライブラリ補完対応** - Rust (serde)、Python (uv/conda) で動作確認済み
 
-全て `pack/plugins/start/` 配下に Git submodule として配置:
-
-- `nvim-treesitter` - 高精度な構文ハイライト
-- `mini.nvim` - mini.completion のみを使用（最小限の補完UI）
-
-**注**: nvim-lspconfigは使用しません。Neovim 0.11+では非推奨となり、ネイティブの `vim.lsp.start()` で十分です。
-
-## 環境確認
+## セットアップ
 
 ```bash
-./check-env.sh
+# クローン
+git clone --recursive https://github.com/ngtkana/nvim-bonsai.git ~/.config/nvim
+
+# LSP サーバーをインストール（必要なもののみ）
+rustup component add rust-analyzer  # Rust
+uv tool install pyright              # Python
+# npm install -g typescript-language-server  # TypeScript/JavaScript
+# go install golang.org/x/tools/gopls@latest  # Go
+
+# 起動
+nvim
 ```
 
-Neovimのバージョン、プラグインのロード状態、利用可能なLSPサーバーを確認できます。
+## 動作確認
 
-## 起動方法
+外部ライブラリの補完が効くことを確認：
 
 ```bash
-NVIM_APPNAME=nvim-sandbox nvim
+# Rust: serde クレートの補完
+nvim examples/rust/src/main.rs
+
+# Python (uv): requests ライブラリの補完
+nvim examples/uv/main.py
+
+# Python (conda): numpy/pandas の補完
+nvim examples/conda/main.py
 ```
 
-または、エイリアスを設定:
+`person.` や `response.` と入力して `<C-n>` で補完候補が表示される。
 
-```bash
-alias nvs='NVIM_APPNAME=nvim-sandbox nvim'
-```
+## 主なキーマップ
 
-## 対応LSPサーバー
-
-以下のツールが `$PATH` にあれば自動的に有効化:
-
-- `rust-analyzer` (Rust)
-- `pyright` (Python)
-- `lua-language-server` (Lua)
-- `typescript-language-server` (TypeScript/JavaScript)
-- `gopls` (Go)
-- `clangd` (C/C++)
-- `bash-language-server` (Bash)
-
-## LSPキーマッピング
-
-| キー | 機能 |
-|------|------|
-| `gd` | 定義へ移動 |
-| `gD` | 宣言へ移動 |
-| `gi` | 実装へ移動 |
-| `gr` | 参照一覧 |
-| `gy` | 型定義へ移動 |
-| `K` | ホバードキュメント |
-| `<C-k>` | シグネチャヘルプ |
-| `<leader>rn` | リネーム |
-| `<leader>ca` | コードアクション |
-| `<leader>f` | フォーマット |
-| `[d` | 前の診断へ |
-| `]d` | 次の診断へ |
-| `<leader>e` | 診断をフロートで表示 |
-| `<leader>q` | 診断をロケーションリストへ |
-
-リーダーキーは `<Space>` に設定。
-
-## プラグインの更新
-
-```bash
-git submodule update --remote --merge
-```
-
-## Treesitter パーサーのインストール
-
-必要に応じて手動でインストール:
-
-```vim
-:TSInstall rust python lua
-```
-
-## ファイル構成
-
-```
-~/.config/nvim-sandbox/
-├── init.lua           (27行) - 基本設定、モジュール読み込み
-├── lua/
-│   ├── plugins.lua    (35行) - mini.completion、treesitter
-│   └── lsp.lua       (149行) - LSP設定、キーマップ、診断
-└── pack/plugins/start/
-    ├── mini.nvim
-    └── nvim-treesitter
-```
-
-## 追加したくなったら
-
-不便を感じたら、自分で足す。それが盆栽スタイル。
-
-- プラグイン追加 → `lua/plugins.lua`
-- LSP追加 → `lua/lsp.lua` の `lsp_servers` テーブル
-- 基本設定変更 → `init.lua`
+- **LSP**: `gd` 定義, `K` ドキュメント, `ga` コードアクション, `]d`/`[d` 診断移動
+- **ファイル**: `|` ツリートグル, `,ff` 検索, `,fg` grep, `,w` 保存
+- **Leader キー**: `,`

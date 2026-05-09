@@ -1,8 +1,11 @@
-# Examples
-examples/
+# Examples - ビルド成果物と仮想環境のみ除外
+examples/*/target/
+examples/*/.venv/
+examples/*/.conda/
+examples/*/Cargo.lock
 
-# Rust
-/target/
+# Rust ビルド成果物
+target/
 Cargo.lock
 
 # Test files
