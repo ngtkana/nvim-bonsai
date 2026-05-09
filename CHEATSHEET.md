@@ -110,6 +110,8 @@
 
 **設定場所**: lua/lsp.lua (lsp_servers テーブル)
 
+**注意**: rust-analyzer は workspace の発見が必須です。ディレクトリに `Cargo.toml` がない場合、LSP は起動しますがエラーになります。
+
 ## Treesitter パーサーのインストール
 
 Neovim内で以下を実行：
@@ -125,6 +127,68 @@ cd ~/.config/nvim-sandbox
 git submodule update --remote --merge
 git add pack/plugins/start
 git commit -m "chore: update plugins"
+```
+
+## テストプロジェクト (examples/)
+
+外部ライブラリの補完動作を確認できるサンプルプロジェクトです。
+
+### Rust (examples/rust/)
+
+```
+examples/rust/
+├── Cargo.toml       - serde クレートを依存関係に追加
+└── src/main.rs      - serde の Serialize/Deserialize を使用
+```
+
+**確認方法:**
+```bash
+NVIM_APPNAME=nvim-sandbox nvim examples/rust/src/main.rs
+```
+
+`person.` と入力して `<C-n>` で構造体のフィールドが補完される
+
+### Python (uv) (examples/uv/)
+
+```
+examples/uv/
+├── pyproject.toml   - requests を依存関係に追加
+├── .venv/           - uv が作成した仮想環境
+└── main.py          - requests ライブラリを使用
+```
+
+**確認方法:**
+```bash
+NVIM_APPNAME=nvim-sandbox nvim examples/uv/main.py
+```
+
+`response.` と入力して `<C-n>` で requests の Response メソッドが補完される
+
+**特徴:** pyright が .venv を自動検出（pyrightconfig.json 不要）
+
+### Python (conda) (examples/conda/)
+
+```
+examples/conda/
+├── pyrightconfig.json - pyright に conda 環境を認識させる設定
+├── .conda/            - conda 環境 (Python 3.11 + numpy + pandas)
+└── main.py            - numpy, pandas を使用
+```
+
+**確認方法:**
+```bash
+NVIM_APPNAME=nvim-sandbox nvim examples/conda/main.py
+```
+
+`arr.` や `df.` と入力して `<C-n>` で numpy/pandas のメソッドが補完される
+
+**特徴:** pyrightconfig.json で明示的に環境を指定
+
+```json
+{
+  "venvPath": ".",
+  "venv": ".conda"
+}
 ```
 
 ## トラブルシューティング
