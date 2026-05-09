@@ -101,6 +101,24 @@ if has_mini_clue then
   })
 end
 
+-- mini.surround の設定（括弧・クォート操作）
+local has_mini_surround, mini_surround = pcall(require, 'mini.surround')
+if has_mini_surround then
+  mini_surround.setup()
+end
+
+-- mini.comment の設定（コメントアウト）
+local has_mini_comment, mini_comment = pcall(require, 'mini.comment')
+if has_mini_comment then
+  mini_comment.setup()
+end
+
+-- mini.ai の設定（テキストオブジェクト拡張）
+local has_mini_ai, mini_ai = pcall(require, 'mini.ai')
+if has_mini_ai then
+  mini_ai.setup()
+end
+
 -- Treesitter の設定
 local has_treesitter, treesitter_configs = pcall(require, 'nvim-treesitter.configs')
 if has_treesitter then

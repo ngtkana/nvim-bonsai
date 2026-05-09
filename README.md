@@ -48,4 +48,5 @@ nvim examples/conda/main.py
 - **LSP**: `gd` 定義, `K` ドキュメント, `ga` コードアクション, `]d`/`[d` 診断移動
 - **ファイル**: `|` ツリートグル, `,ff` 検索, `,fg` grep, `,w` 保存
 - **Git**: `,gg` lazygit 起動
+- **編集**: `gcc` コメント, `sa` 囲む, `sr` 置換, `sd` 削除, `daa`/`dia` 引数削除
 - **Leader キー**: `,`
