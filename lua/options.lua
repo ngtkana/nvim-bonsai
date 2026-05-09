@@ -28,3 +28,7 @@ opt.hlsearch = false
 -- 折りたたみ
 opt.foldmethod = 'marker'
 opt.foldlevel = 99
+
+-- カラースキーム
+opt.background = 'light'
+vim.cmd('colorscheme lucius')
