@@ -83,6 +83,23 @@ git submodule update --remote --merge
 :TSInstall rust python lua
 ```
 
+## ファイル構成
+
+```
+~/.config/nvim-sandbox/
+├── init.lua           (27行) - 基本設定、モジュール読み込み
+├── lua/
+│   ├── plugins.lua    (35行) - mini.completion、treesitter
+│   └── lsp.lua       (149行) - LSP設定、キーマップ、診断
+└── pack/plugins/start/
+    ├── mini.nvim
+    └── nvim-treesitter
+```
+
 ## 追加したくなったら
 
 不便を感じたら、自分で足す。それが盆栽スタイル。
+
+- プラグイン追加 → `lua/plugins.lua`
+- LSP追加 → `lua/lsp.lua` の `lsp_servers` テーブル
+- 基本設定変更 → `init.lua`
