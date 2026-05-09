@@ -3,7 +3,7 @@
 
 set -e
 
-APPNAME="${NVIM_APPNAME:-nvim-sandbox}"
+APPNAME="${NVIM_APPNAME:-nvim}"
 
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "  Neovim Environment Check"
@@ -45,9 +45,17 @@ echo -e "\n🧪 Plugin Loading Test"
 NVIM_APPNAME="$APPNAME" nvim --headless \
   +"lua if pcall(require, 'mini.completion') then print('  ✓ mini.completion loaded') end" \
   +"lua if pcall(require, 'nvim-treesitter') then print('  ✓ nvim-treesitter loaded') end" \
+  +"lua if pcall(require, 'lazygit') then print('  ✓ lazygit.nvim loaded') end" \
   +quit 2>&1 | grep "✓" || echo "  ✗ Failed to load plugins"
 
+echo -e "\n🎨 Additional Tools"
+if command -v lazygit &> /dev/null; then
+  printf "  ✓ %-30s %s\n" "lazygit" "(,gg でGit操作)"
+else
+  printf "  ✗ %-30s %s\n" "lazygit" "(not installed)"
+fi
+
 echo -e "\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo -e "💡 起動方法: \033[1mNVIM_APPNAME=$APPNAME nvim\033[0m"
-echo -e "💡 エイリアス: \033[1malias nvs='NVIM_APPNAME=$APPNAME nvim'\033[0m"
+echo -e "💡 起動方法: \033[1mnvim\033[0m"
+echo -e "💡 Git操作: \033[1m,gg\033[0m でlazygit起動"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
