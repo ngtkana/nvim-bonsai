@@ -35,12 +35,6 @@ if has_mini_notify then
   mini_notify.setup()
 end
 
--- mini.git の設定（Git 統合）
-local has_mini_git, mini_git = pcall(require, 'mini.git')
-if has_mini_git then
-  mini_git.setup()
-end
-
 -- mini.statusline の設定（ステータスライン）
 local has_mini_statusline, mini_statusline = pcall(require, 'mini.statusline')
 if has_mini_statusline then

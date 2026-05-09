@@ -58,3 +58,6 @@ end, { desc = 'Reload init.lua' })
 
 -- コードアクション
 map('n', 'ga', vim.lsp.buf.code_action, { desc = 'Code action' })
+
+-- lazygit
+map('n', '<leader>gg', '<cmd>LazyGit<cr>', { desc = 'LazyGit' })

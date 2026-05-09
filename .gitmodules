@@ -7,3 +7,6 @@
 [submodule "pack/plugins/start/vim-lucius"]
 	path = pack/plugins/start/vim-lucius
 	url = https://github.com/jonathanfilip/vim-lucius.git
+[submodule "pack/plugins/start/lazygit.nvim"]
+	path = pack/plugins/start/lazygit.nvim
+	url = https://github.com/kdheepak/lazygit.nvim.git

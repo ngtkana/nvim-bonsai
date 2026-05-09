@@ -5,9 +5,10 @@
 ## 特徴
 
 - **Neovim 0.11+ ネイティブ LSP** - nvim-lspconfig 不要、`vim.lsp.start()` を直接使用
-- **Git submodule 管理** - lazy.nvim/mason.nvim 不要、プラグイン 3 個のみ
+- **Git submodule 管理** - lazy.nvim/mason.nvim 不要、プラグイン 4 個のみ
 - **mini.nvim ベース** - ファイル検索、ファイルツリー、通知など全て内蔵
 - **外部ライブラリ補完対応** - Rust (serde)、Python (uv/conda) で動作確認済み
+- **lazygit 統合** - `,gg` でインタラクティブな Git 操作
 
 ## セットアップ
 
@@ -46,4 +47,5 @@ nvim examples/conda/main.py
 
 - **LSP**: `gd` 定義, `K` ドキュメント, `ga` コードアクション, `]d`/`[d` 診断移動
 - **ファイル**: `|` ツリートグル, `,ff` 検索, `,fg` grep, `,w` 保存
+- **Git**: `,gg` lazygit 起動
 - **Leader キー**: `,`
