@@ -5,6 +5,16 @@
 local map = vim.keymap.set
 
 -- mini.files (ファイルツリー)
+-- トグル機能
+local minifiles_toggle = function()
+  local MiniFiles = require('mini.files')
+  if not MiniFiles.close() then
+    MiniFiles.open(vim.api.nvim_buf_get_name(0))
+  end
+end
+
+map('n', '|', minifiles_toggle, { desc = 'Toggle file explorer' })
+
 map('n', '-', function()
   require('mini.files').open(vim.api.nvim_buf_get_name(0))
 end, { desc = 'Open file explorer (current file)' })

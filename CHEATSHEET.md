@@ -5,6 +5,7 @@
 | キー | 機能 | プラグイン | 設定場所 |
 |------|------|-----------|---------|
 | **ファイル操作** |
+| `\|` | ファイルツリーをトグル（開く/閉じる） | mini.files | lua/keymaps.lua |
 | `-` | カレントファイルのディレクトリを開く | mini.files | lua/keymaps.lua |
 | `,e` | カレントディレクトリを開く | mini.files | lua/keymaps.lua |
 | `,ff` | ファイル検索 | mini.pick | lua/keymaps.lua |
