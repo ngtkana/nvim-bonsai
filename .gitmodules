@@ -10,3 +10,6 @@
 [submodule "pack/plugins/start/lazygit.nvim"]
 	path = pack/plugins/start/lazygit.nvim
 	url = https://github.com/kdheepak/lazygit.nvim.git
+[submodule "pack/plugins/start/oil.nvim"]
+	path = pack/plugins/start/oil.nvim
+	url = https://github.com/stevearc/oil.nvim.git

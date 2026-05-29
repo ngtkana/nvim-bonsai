@@ -4,24 +4,12 @@
 
 local map = vim.keymap.set
 
--- mini.files (ファイルツリー)
--- トグル機能
-local minifiles_toggle = function()
-  local MiniFiles = require('mini.files')
-  if not MiniFiles.close() then
-    MiniFiles.open(vim.api.nvim_buf_get_name(0))
-  end
-end
+-- oil.nvim (ファイラ)
+map('n', '|', '<cmd>Oil<cr>', { desc = 'Open file explorer' })
 
-map('n', '|', minifiles_toggle, { desc = 'Toggle file explorer' })
+map('n', '-', '<cmd>Oil<cr>', { desc = 'Open file explorer' })
 
-map('n', '-', function()
-  require('mini.files').open(vim.api.nvim_buf_get_name(0))
-end, { desc = 'Open file explorer (current file)' })
-
-map('n', '<leader>e', function()
-  require('mini.files').open()
-end, { desc = 'Open file explorer (cwd)' })
+map('n', '<leader>e', '<cmd>Oil<cr>', { desc = 'Open file explorer' })
 
 -- mini.pick (telescope 代替)
 map('n', '<leader>ff', function()
