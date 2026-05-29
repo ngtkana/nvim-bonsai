@@ -135,36 +135,22 @@ if has_mini_hipatterns then
   })
 end
 
--- oil.nvim の設定（ファイラ）
-local has_oil, oil = pcall(require, 'oil')
-if has_oil then
-  oil.setup({
-    columns = {
-      'icon',
-      'permissions',
-      'size',
-      'mtime',
+-- neo-tree の設定（ファイラ）
+local has_neotree, neotree = pcall(require, 'neo-tree')
+if has_neotree then
+  neotree.setup({
+    filesystem = {
+      filtered_items = {
+        hide_dotfiles = false,
+        hide_gitignored = false,
+        hide_ignored = false,
+      },
     },
-    keymaps = {
-      ['g?'] = 'actions.show_help',
-      ['<CR>'] = 'actions.select',
-      ['<C-v>'] = 'actions.select_vsplit',
-      ['<C-s>'] = 'actions.select_split',
-      ['<C-t>'] = 'actions.select_tab',
-      ['<C-p>'] = 'actions.preview',
-      ['<C-c>'] = 'actions.close',
-      ['<C-l>'] = 'actions.refresh',
-      ['-'] = 'actions.parent',
-      ['_'] = 'actions.open_cwd',
-      ['`'] = 'actions.cd',
-      ['~'] = 'actions.tcd',
-      ['gs'] = 'actions.change_sort',
-      ['gx'] = 'actions.open_external',
-      ['g.'] = 'actions.toggle_hidden',
-      ['g\\'] = 'actions.toggle_trash',
-    },
-    view_options = {
-      show_hidden = true,
+    window = {
+      width = 30,
+      mappings = {
+        ['<space>'] = 'none',
+      },
     },
   })
 end

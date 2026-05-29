@@ -4,12 +4,12 @@
 
 local map = vim.keymap.set
 
--- oil.nvim (ファイラ)
-map('n', '|', '<cmd>Oil<cr>', { desc = 'Open file explorer' })
+-- neo-tree (ファイラ)
+map('n', '|', '<cmd>Neotree toggle<cr>', { desc = 'Toggle file explorer' })
 
-map('n', '-', '<cmd>Oil<cr>', { desc = 'Open file explorer' })
+map('n', '-', '<cmd>Neotree reveal<cr>', { desc = 'Reveal current file in explorer' })
 
-map('n', '<leader>e', '<cmd>Oil<cr>', { desc = 'Open file explorer' })
+map('n', '<leader>e', '<cmd>Neotree toggle<cr>', { desc = 'Toggle file explorer' })
 
 -- mini.pick (telescope 代替)
 map('n', '<leader>ff', function()
