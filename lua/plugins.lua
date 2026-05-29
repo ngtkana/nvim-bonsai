@@ -41,25 +41,6 @@ if has_mini_statusline then
   mini_statusline.setup()
 end
 
--- mini.files の設定（ファイルツリー）
-local has_mini_files, mini_files = pcall(require, 'mini.files')
-if has_mini_files then
-  mini_files.setup({
-    mappings = {
-      close = 'q',
-      go_in = 'l',
-      go_in_plus = '<CR>',
-      go_out = 'h',
-      go_out_plus = 'H',
-      reset = '<BS>',
-      show_help = 'g?',
-      synchronize = '=',
-      trim_left = '<',
-      trim_right = '>',
-    },
-  })
-end
-
 -- mini.clue の設定（which-key 代替）
 local has_mini_clue, mini_clue = pcall(require, 'mini.clue')
 if has_mini_clue then
