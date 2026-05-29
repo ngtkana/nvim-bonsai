@@ -131,6 +131,8 @@ if has_neotree then
       width = 30,
       mappings = {
         ['<space>'] = 'none',
+        ['h'] = 'close_node',
+        ['l'] = 'open',
       },
     },
   })
