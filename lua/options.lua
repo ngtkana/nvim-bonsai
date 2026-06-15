@@ -4,9 +4,6 @@
 
 local opt = vim.opt
 
--- クリップボード
-opt.clipboard = 'unnamedplus'
-
 -- マウス
 opt.mouse = 'a'
 
