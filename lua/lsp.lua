@@ -29,6 +29,37 @@ local lsp_servers = {
     root_markers = { 'package.json', 'tsconfig.json', 'jsconfig.json' },
   },
   {
+    name = 'html',
+    cmd = { 'vscode-html-language-server', '--stdio' },
+    filetypes = { 'html' },
+    root_markers = { 'package.json', '.git' },
+    init_options = { provideFormatter = true },
+  },
+  {
+    name = 'cssls',
+    cmd = { 'vscode-css-language-server', '--stdio' },
+    filetypes = { 'css', 'scss', 'less' },
+    root_markers = { 'package.json', '.git' },
+    settings = {
+      css  = { validate = true },
+      scss = { validate = true },
+      less = { validate = true },
+    },
+  },
+  {
+    name = 'jsonls',
+    cmd = { 'vscode-json-language-server', '--stdio' },
+    filetypes = { 'json', 'jsonc' },
+    root_markers = { 'package.json', '.git' },
+    init_options = { provideFormatter = true },
+  },
+  {
+    name = 'metals',
+    cmd = { 'metals' },
+    filetypes = { 'scala', 'sbt' },
+    root_markers = { 'build.sbt', 'build.sc', '.git' },
+  },
+  {
     name = 'gopls',
     cmd = { 'gopls' },
     filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
@@ -80,6 +111,8 @@ for _, server in ipairs(lsp_servers) do
           name = server.name,
           cmd = server.cmd,
           root_dir = root_dir,
+          init_options = server.init_options,
+          settings = server.settings,
         })
       end,
       desc = string.format('Start %s LSP', server.name),

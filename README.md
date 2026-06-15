@@ -17,9 +17,11 @@
 git clone --recursive https://github.com/ngtkana/nvim-bonsai.git ~/.config/nvim
 
 # LSP サーバーをインストール（必要なもののみ）
-rustup component add rust-analyzer  # Rust
-uv tool install pyright              # Python
-# npm install -g typescript-language-server  # TypeScript/JavaScript
+rustup component add rust-analyzer           # Rust
+uv tool install pyright                      # Python
+npm install -g typescript typescript-language-server  # TypeScript/JavaScript
+npm install -g vscode-langservers-extracted  # HTML/CSS/JSON
+cs install metals                            # Scala
 # go install golang.org/x/tools/gopls@latest  # Go
 
 # 起動
