@@ -58,6 +58,15 @@ local lsp_servers = {
     cmd = { 'metals' },
     filetypes = { 'scala', 'sbt' },
     root_markers = { 'build.sbt', 'build.sc', '.git' },
+    init_options = {
+      isHttpEnabled = true,
+    },
+  },
+  {
+    name = 'gleam',
+    cmd = { 'gleam', 'lsp' },
+    filetypes = { 'gleam' },
+    root_markers = { 'gleam.toml' },
   },
   {
     name = 'gopls',
@@ -153,6 +162,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
     vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, opts)
     vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts)
+
+    -- セーブ時に自動フォーマット
+    vim.api.nvim_create_autocmd('BufWritePre', {
+      buffer = ev.buf,
+      callback = function()
+        vim.lsp.buf.format({ async = false })
+      end,
+    })
   end,
 })
 

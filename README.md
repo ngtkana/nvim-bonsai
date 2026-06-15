@@ -22,6 +22,7 @@ uv tool install pyright                      # Python
 npm install -g typescript typescript-language-server  # TypeScript/JavaScript
 npm install -g vscode-langservers-extracted  # HTML/CSS/JSON
 cs install metals                            # Scala
+brew install gleam                           # Gleam
 # go install golang.org/x/tools/gopls@latest  # Go
 
 # 起動
