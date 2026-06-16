@@ -86,6 +86,12 @@ local lsp_servers = {
     filetypes = { 'sh', 'bash' },
     root_markers = { '.git' },
   },
+  {
+    name = 'gleam',
+    cmd = { 'gleam', 'lsp' },
+    filetypes = { 'gleam' },
+    root_markers = { 'gleam.toml' },
+  },
 }
 
 -- PATHにあるLSPサーバーのみを登録してFileTypeで自動起動
