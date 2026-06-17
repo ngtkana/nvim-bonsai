@@ -28,11 +28,8 @@ map('n', '<leader>fh', function()
   require('mini.pick').builtin.help()
 end, { desc = 'Help tags' })
 
--- ファイル保存 + 通知
-map('n', '<leader>w', function()
-  vim.cmd('write')
-  require('mini.notify').add('ファイルを保存しました')
-end, { desc = 'Save file' })
+-- ファイル保存
+map('n', '<leader>w', '<cmd>write<cr>', { desc = 'Save file' })
 
 -- nvim 設定
 map('n', '<leader>ev', function()
