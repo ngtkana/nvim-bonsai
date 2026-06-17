@@ -92,6 +92,12 @@ local lsp_servers = {
     filetypes = { 'gleam' },
     root_markers = { 'gleam.toml' },
   },
+  {
+    name = 'zls',
+    cmd = { 'zls' },
+    filetypes = { 'zig' },
+    root_markers = { 'build.zig', 'build.zig.zon' },
+  },
 }
 
 -- PATHにあるLSPサーバーのみを登録してFileTypeで自動起動
