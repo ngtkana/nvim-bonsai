@@ -150,6 +150,78 @@ for _, server in ipairs(lsp_servers) do
 end
 
 -- ============================================================================
+-- LSP ハンドラのカスタマイズ（行番号バリデーション）
+-- ============================================================================
+local function validate_and_jump(location)
+  if not location then
+    return
+  end
+  local uri = location.uri
+  if not uri then
+    return
+  end
+  local range = location.range
+  if not range then
+    return
+  end
+  local line = range.start.line
+  if not line or line < 0 then
+    return
+  end
+  -- ファイルを開いて行数を確認
+  local path = vim.uri_to_fname(uri)
+  local lines = vim.fn.readfile(path)
+  if line > #lines then
+    return
+  end
+  pcall(vim.lsp.util.jump_to_location, location, 'utf-8', true)
+end
+
+vim.lsp.handlers['textDocument/definition'] = function(err, result, ctx, config)
+  if err then
+    return
+  end
+  if not result or vim.tbl_isempty(result) then
+    return
+  end
+  validate_and_jump(result[1])
+end
+
+vim.lsp.handlers['textDocument/declaration'] = function(err, result, ctx, config)
+  if err then
+    return
+  end
+  if not result or vim.tbl_isempty(result) then
+    return
+  end
+  validate_and_jump(result[1])
+end
+
+vim.lsp.handlers['textDocument/implementation'] = function(err, result, ctx, config)
+  if err then
+    return
+  end
+  if not result or vim.tbl_isempty(result) then
+    return
+  end
+  if type(result) == 'table' and result[1] then
+    validate_and_jump(result[1])
+  end
+end
+
+vim.lsp.handlers['textDocument/typeDefinition'] = function(err, result, ctx, config)
+  if err then
+    return
+  end
+  if not result or vim.tbl_isempty(result) then
+    return
+  end
+  if type(result) == 'table' and result[1] then
+    validate_and_jump(result[1])
+  end
+end
+
+-- ============================================================================
 -- LSP キーマッピング (LspAttach で自動設定)
 -- ============================================================================
 vim.api.nvim_create_autocmd('LspAttach', {
@@ -157,12 +229,17 @@ vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(ev)
     local opts = { buffer = ev.buf, silent = true }
 
-    -- 移動
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-    vim.keymap.set('n', 'gy', vim.lsp.buf.type_definition, opts)
+    -- 移動（エラーハンドリング付き）
+    local function safe_jump(fn)
+      return function()
+        pcall(fn)
+      end
+    end
+    vim.keymap.set('n', 'gd', safe_jump(vim.lsp.buf.definition), opts)
+    vim.keymap.set('n', 'gD', safe_jump(vim.lsp.buf.declaration), opts)
+    vim.keymap.set('n', 'gi', safe_jump(vim.lsp.buf.implementation), opts)
+    vim.keymap.set('n', 'gr', safe_jump(vim.lsp.buf.references), opts)
+    vim.keymap.set('n', 'gy', safe_jump(vim.lsp.buf.type_definition), opts)
 
     -- ドキュメント
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
@@ -180,14 +257,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
     vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, opts)
     vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts)
-
-    -- セーブ時に自動フォーマット
-    vim.api.nvim_create_autocmd('BufWritePre', {
-      buffer = ev.buf,
-      callback = function()
-        vim.lsp.buf.format({ async = false })
-      end,
-    })
   end,
 })
 
