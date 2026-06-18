@@ -22,6 +22,12 @@
 [submodule "pack/plugins/start/neo-tree.nvim"]
 	path = pack/plugins/start/neo-tree.nvim
 	url = https://github.com/nvim-neo-tree/neo-tree.nvim.git
-[submodule "pack/plugins/start/claudecode.nvim"]
-	path = pack/plugins/start/claudecode.nvim
-	url = https://github.com/coder/claudecode.nvim
+[submodule "pack/plugins/start/claudecode"]
+	path = pack/plugins/start/claudecode
+	url = https://github.com/coder/claudecode.nvim.git
+[submodule "pack/plugins/start/snacks"]
+	path = pack/plugins/start/snacks
+	url = https://github.com/folke/snacks.nvim.git
+[submodule "pack/plugins/start/which-key"]
+	path = pack/plugins/start/which-key
+	url = https://github.com/folke/which-key.nvim.git

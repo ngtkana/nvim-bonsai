@@ -47,6 +47,11 @@ map('n', 'ga', vim.lsp.buf.code_action, { desc = 'Code action' })
 -- lazygit
 map('n', '<leader>gg', '<cmd>LazyGit<cr>', { desc = 'LazyGit' })
 
--- claudecode.nvim
-map('n', '<leader>cc', '<cmd>ClaudeCode<cr>', { desc = 'Claude Code' })
-map('n', '<leader>ca', '<cmd>ClaudeCodeActions<cr>', { desc = 'Claude Code Actions' })
+-- Claude Code
+map('n', '<leader>ac', '<cmd>ClaudeCode<cr>', { desc = 'Toggle Claude' })
+map('n', '<leader>af', '<cmd>ClaudeCodeFocus<cr>', { desc = 'Focus Claude' })
+map('n', '<leader>am', '<cmd>ClaudeCodeSelectModel<cr>', { desc = 'Select model' })
+map('n', '<leader>ab', '<cmd>ClaudeCodeAdd %<cr>', { desc = 'Add current buffer' })
+map('v', '<leader>as', '<cmd>ClaudeCodeSend<cr>', { desc = 'Send to Claude' })
+map('n', '<leader>aa', '<cmd>ClaudeCodeDiffAccept<cr>', { desc = 'Accept diff' })
+map('n', '<leader>ad', '<cmd>ClaudeCodeDiffDeny<cr>', { desc = 'Deny diff' })

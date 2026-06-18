@@ -41,44 +41,27 @@ if has_mini_statusline then
   mini_statusline.setup()
 end
 
--- mini.clue の設定（which-key 代替）
-local has_mini_clue, mini_clue = pcall(require, 'mini.clue')
-if has_mini_clue then
-  mini_clue.setup({
-    triggers = {
-      -- Leader キー
-      { mode = 'n', keys = ',' },
-      { mode = 'x', keys = ',' },
-      -- Built-in completion
-      { mode = 'i', keys = '<C-x>' },
-      -- `g` key
-      { mode = 'n', keys = 'g' },
-      { mode = 'x', keys = 'g' },
-      -- Window commands
-      { mode = 'n', keys = '<C-w>' },
-      -- `z` key
-      { mode = 'n', keys = 'z' },
+-- which-key の設定
+local has_which_key, which_key = pcall(require, 'which-key')
+if has_which_key then
+  which_key.setup({
+    preset = 'helix',  -- 表示スタイル
+    delay = 100,       -- 表示までの遅延
+    icons = {
+      breadcrumb = '»',
+      separator = '➜',
+      group = '+',
     },
-    clues = {
-      -- Leader キーのグループ化
-      { mode = 'n', keys = ',f', desc = '+find' },
-      { mode = 'n', keys = ',e', desc = '+edit' },
-      { mode = 'n', keys = ',s', desc = '+source' },
-      { mode = 'n', keys = ',c', desc = '+code' },
-      -- Built-in clues
-      mini_clue.gen_clues.builtin_completion(),
-      mini_clue.gen_clues.g(),
-      mini_clue.gen_clues.windows(),
-      mini_clue.gen_clues.z(),
-    },
-    window = {
-      delay = 100,  -- 表示までの遅延を 100ms に短縮（デフォルト 1000ms）
-      config = {
-        anchor = 'SW',  -- 左下に表示（デフォルトは右下）
-        row = 'auto',
-        col = 'auto',
-      },
-    },
+  })
+
+  -- キーマップグループの説明を登録
+  which_key.add({
+    { '<leader>f', group = 'find' },
+    { '<leader>e', group = 'edit' },
+    { '<leader>s', group = 'source' },
+    { '<leader>c', group = 'code' },
+    { '<leader>a', group = 'claude' },
+    { '<leader>g', group = 'git' },
   })
 end
 
@@ -154,8 +137,30 @@ if has_treesitter then
   })
 end
 
+-- snacks.nvim の設定（claudecode.nvim の依存）
+local has_snacks, snacks = pcall(require, 'snacks')
+if has_snacks then
+  snacks.setup({
+    indent = { enabled = false },  -- mini.indent と競合しないように
+    input = { enabled = true },
+    picker = { enabled = false },  -- mini.pick を使用
+    terminal = { enabled = true },
+  })
+end
+
 -- claudecode.nvim の設定
 local has_claudecode, claudecode = pcall(require, 'claudecode')
 if has_claudecode then
-  claudecode.setup()
+  claudecode.setup({
+    log_level = 'info',
+    terminal = {
+      provider = 'snacks',
+      diff_split_width_percentage = 40,
+    },
+    diff_opts = {
+      layout = 'vertical',
+      keep_terminal_focus = false,
+      open_in_new_tab = false,
+    },
+  })
 end
