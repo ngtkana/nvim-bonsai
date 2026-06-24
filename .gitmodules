@@ -22,3 +22,6 @@
 [submodule "pack/plugins/start/neo-tree.nvim"]
 	path = pack/plugins/start/neo-tree.nvim
 	url = https://github.com/nvim-neo-tree/neo-tree.nvim.git
+[submodule "pack/plugins/start/claudecode.nvim"]
+	path = pack/plugins/start/claudecode.nvim
+	url = https://github.com/coder/claudecode.nvim

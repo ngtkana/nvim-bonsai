@@ -153,3 +153,9 @@ if has_treesitter then
     },
   })
 end
+
+-- claudecode.nvim の設定
+local has_claudecode, claudecode = pcall(require, 'claudecode')
+if has_claudecode then
+  claudecode.setup()
+end

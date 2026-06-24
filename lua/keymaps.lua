@@ -46,3 +46,7 @@ map('n', 'ga', vim.lsp.buf.code_action, { desc = 'Code action' })
 
 -- lazygit
 map('n', '<leader>gg', '<cmd>LazyGit<cr>', { desc = 'LazyGit' })
+
+-- claudecode.nvim
+map('n', '<leader>cc', '<cmd>ClaudeCode<cr>', { desc = 'Claude Code' })
+map('n', '<leader>ca', '<cmd>ClaudeCodeActions<cr>', { desc = 'Claude Code Actions' })
