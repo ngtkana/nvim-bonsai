@@ -98,6 +98,12 @@ local lsp_servers = {
     filetypes = { 'zig' },
     root_markers = { 'build.zig', 'build.zig.zon' },
   },
+  {
+    name = 'taplo',
+    cmd = { 'taplo', 'lsp', 'stdio' },
+    filetypes = { 'toml' },
+    root_markers = { '.taplo.toml', '.git' },
+  },
 }
 
 -- PATHにあるLSPサーバーのみを登録してFileTypeで自動起動
